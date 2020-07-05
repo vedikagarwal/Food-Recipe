@@ -17,7 +17,7 @@ const App = () => {
   },[query]);
 
   const getRecipies = async() =>{
-    const response = await fetch('https://api.edamam.com/search?app_id=900da95e&app_key=40698503668e0bb3897581f4766d77f9&q=kalakand')
+    const response = await fetch(`https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEY}&q=${query}`)
     const data = await response.json();
     setRecipes(data.hits); 
     console.log(data.hits);
@@ -30,7 +30,6 @@ const App = () => {
   const getSearch = e => {
     e.preventDefault();
     setQuery(search);
-    setSearch('');
   }
   return(
     <div className="App">
@@ -47,7 +46,12 @@ const App = () => {
         title={recipe.recipe.label}
         calories={recipe.recipe.calories}
         image={recipe.recipe.image}
-        ingredients={recipe.recipe.ingredients}/>
+        ingredients={recipe.recipe.ingredients}
+        protien={recipe.recipe.totalNutrients.PROCNT.quantity}
+        carbo={recipe.recipe.totalNutrients.CHOCDF.quantity}
+        fat={recipe.recipe.totalNutrients.FAT.quantity}
+       
+      />
       ) )}
       </div>
       
